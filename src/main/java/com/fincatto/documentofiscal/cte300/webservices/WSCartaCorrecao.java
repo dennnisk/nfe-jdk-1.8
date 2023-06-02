@@ -9,6 +9,7 @@ import com.fincatto.documentofiscal.utils.DFAssinaturaDigital;
 import org.apache.axiom.om.OMElement;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 class WSCartaCorrecao extends WSRecepcaoEvento {
@@ -33,7 +34,10 @@ class WSCartaCorrecao extends WSRecepcaoEvento {
         correcao.setValorAlterado(valorAlterado);
         correcao.setNumeroItemAlterado(numeroItemAlterado);
 
-        return corrigeNota(chaveAcesso, List.of(correcao), sequencialEvento);
+        List<CTeInformacaoCartaCorrecao> correcoes = new ArrayList<CTeInformacaoCartaCorrecao>();
+        correcoes.add(correcao);
+        
+        return corrigeNota(chaveAcesso, correcoes, sequencialEvento);
     }
 
     CTeEventoRetorno corrigeNota(final String chaveAcesso, List<CTeInformacaoCartaCorrecao> correcoes, int sequencialEvento) throws Exception {
