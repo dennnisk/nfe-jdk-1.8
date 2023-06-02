@@ -23,13 +23,8 @@ Caso não possua conhecimento técnico para criar notas fiscais, um profissional
 
 ### Diretamente pelo Maven
 
-```xml
-<dependency>
-  <groupId>com.github.wmixvideo</groupId>
-  <artifactId>nfe</artifactId>
-  <version>${latest.release}</version>
-</dependency>
-```
+FORK não publicado no repositório do Maven. Apenas em repositório proprietário.
+
 Para acessar a lista de versões disponíveis, acesse a página de release [aqui](https://github.com/wmixvideo/nfe/releases) no github. 
 
 ### Diretamente pelo código fonte (última versão em desenvolvimento)
