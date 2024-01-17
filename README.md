@@ -1,3 +1,8 @@
+# FORK COM ALTERAÇÃO DA VERSÃO DO JAVA PARA A 1.8 E PUBLICAÇÃO NO REPOSITORIO INTERNO.
+
+`pom.xml` Alterado para `<version>4.0.38-JDK18</version>` e removido o diretório padrão de publicação para um repositório interno.
+
+## Documentação do proeto original -- 
 Nota Fiscal Eletrônica
 ===
 Comunicador de nota fiscal e nota fiscal do consumidor da [fazenda](http://www.nfe.fazenda.gov.br/portal/principal.aspx).<br/>
