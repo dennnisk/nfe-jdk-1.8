@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.wmixvideo</groupId>
     <artifactId>nfe</artifactId>
-    <version>4.0.101-SNAPSHOT</version>
+    <version>4.0.101-JDK18</version>
     <packaging>jar</packaging>
     <name>nfe</name>
     <description>Biblioteca de comunicacao de nota fiscal eletronica brasileira</description>
@@ -15,6 +15,25 @@
             <distribution>repo</distribution>
         </license>
     </licenses>
+    
+     <scm>
+        <url>git@github.com:dennnisk/nfe-jdk-1.8.git</url>
+        <connection>scm:git:git@github.com:dennnisk/nfe-jdk-1.8.git</connection>
+        <developerConnection>scm:git:git@github.com:dennnisk/nfe-jdk-1.8.git</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.8</java.version>
+        <axis2.version>1.7.9</axis2.version>
+        <slf4j.version>2.0.7</slf4j.version>
+        <junit.version>4.13.2</junit.version>
+        <commons-lang3.version>3.14.0</commons-lang3.version>
+        <simple-xml.version>2.7.1</simple-xml.version>
+		<distribution.server>192.168.15.251:8888</distribution.server>
+    </properties>
 
     <developers>
         <developer>
@@ -39,45 +58,77 @@
         </developer>
     </developers>
 
-    <scm>
-        <url>git@github.com:wmixvideo/nfe.git</url>
-        <connection>scm:git:git@github.com:wmixvideo/nfe.git</connection>
-        <developerConnection>scm:git:git@github.com:wmixvideo/nfe.git</developerConnection>
-        <tag>HEAD</tag>
-    </scm>
-
-    <properties>
-        <java.version>11</java.version>
-        <slf4j.version>2.0.13</slf4j.version>
-        <junit.version>4.13.2</junit.version>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <axis2.version>1.7.9</axis2.version>
-        <commons-lang3.version>3.18.0</commons-lang3.version>
-        <simple-xml.version>2.7.1</simple-xml.version>
-    </properties>
-
     <dependencies>
         <!-- https://mvnrepository.com/artifact/org.apache.santuario/xmlsec -->
         <dependency>
             <groupId>org.apache.santuario</groupId>
             <artifactId>xmlsec</artifactId>
-            <version>4.0.2</version>
+            <version>3.0.3</version>
         </dependency>
 
         <!-- Simple Xml Framework -->
         <dependency>
             <groupId>org.simpleframework</groupId>
             <artifactId>simple-xml</artifactId>
-            <version>${simple-xml.version}</version>
+            <version>2.7.1</version>
         </dependency>
+        
+        <!-- 
+		<dependency>
+  			<groupId>org.apache.ws.commons.axiom</groupId>
+  			<artifactId>axiom-api</artifactId>
+  			<version>1.2.22</version>
+		</dependency>
 
+		<dependency>
+  			<groupId>org.apache.ws.commons.axiom</groupId>
+  			<artifactId>axiom-impl</artifactId>
+  			<version>1.2.22</version>
+		</dependency>
+ -->
+		<dependency>
+  			<groupId>javax.xml.stream</groupId>
+  			<artifactId>stax-api</artifactId>
+  			<version>1.0-2</version>
+		</dependency>
+
+<!--
+		<dependency>
+  			<groupId>org.codehaus.woodstox</groupId>
+  			<artifactId>woodstox-core-asl</artifactId>
+  			<version>4.4.1</version>
+		</dependency>
+		
+		<dependency>
+  			<groupId>org.codehaus.woodstox</groupId>
+  			<artifactId>stax2-api</artifactId>
+  			<version>3.1.4</version>
+		</dependency>
+
+		<dependency>
+  			<groupId>commons-httpclient</groupId>
+  			<artifactId>commons-httpclient</artifactId>
+  			<version>3.1</version>
+		</dependency>
+-->
+		<dependency>
+  			<groupId>commons-logging</groupId>
+  			<artifactId>commons-logging</artifactId>
+  			<version>1.2</version>
+		</dependency>
+		
         <!-- Commons Lang -->
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>${commons-lang3.version}</version>
         </dependency>
+        <dependency>
+    		<groupId>junit</groupId>
+    		<artifactId>junit</artifactId>
+    		<version>4.13.2</version>
+    		<scope>test</scope>
+		</dependency>
 
         <!-- Axis 2 -->
         <dependency>
@@ -109,28 +160,7 @@
             <artifactId>axis2-transport-http</artifactId>
             <version>${axis2.version}</version>
             <scope>compile</scope>
-        </dependency>
-
-        <!-- Logging -->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>${slf4j.version}</version>
-        </dependency>
-
-        <!-- Unit testing -->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-simple</artifactId>
-            <version>${slf4j.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>${junit.version}</version>
-            <scope>test</scope>
-        </dependency>
+        </dependency>        
     </dependencies>
 
     <build>
@@ -139,7 +169,7 @@
                 <filtering>false</filtering>
                 <directory>src/main/resources</directory>
             </resource>
-            <resource>
+          <!--<resource>
                 <filtering>false</filtering>
                 <directory>src/main/java</directory>
                 <includes>
@@ -148,7 +178,7 @@
                 <excludes>
                     <exclude>**/*.java</exclude>
                 </excludes>
-            </resource>
+            </resource> -->
         </resources>
 
         <testResources>
@@ -174,7 +204,6 @@
                 <inherited>true</inherited>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.14.0</version>
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
@@ -219,122 +248,28 @@
             </plugin>
         </plugins>
     </build>
+    <distributionManagement>
+        <repository>
+            <id>deployment</id>
+            <name>Internal Releases</name>
+            <url>http://${distribution.server}/content/repositories/releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>deployment</id>
+            <name>Internal Releases</name>
+            <url>http://${distribution.server}/content/repositories/snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
+		
+   	<repositories>
+        <repository>
+            <id>br.com.jjw.besser</id>
+            <url>http://192.168.15.251:8888/content/repositories/releases/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </repository>
+    </repositories>    
 
-    <profiles>
-        <profile>
-            <id>ossrh</id>
-            <distributionManagement>
-                <snapshotRepository>
-                    <id>ossrh</id>
-                    <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-                </snapshotRepository>
-                <repository>
-                    <id>ossrh</id>
-                    <url>https://oss.sonatype.org/content/repositories/releases</url>
-                </repository>
-            </distributionManagement>
-        </profile>
-        <profile>
-            <id>github</id>
-            <distributionManagement>
-                <repository>
-                    <id>github</id>
-                    <url>https://maven.pkg.github.com/wmixvideo/nfe</url>
-                </repository>
-            </distributionManagement>
-        </profile>
-        <profile>
-            <id>deploy</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.sonatype.plugins</groupId>
-                        <artifactId>nexus-staging-maven-plugin</artifactId>
-                        <version>1.7.0</version>
-                        <extensions>true</extensions>
-                        <configuration>
-                            <serverId>ossrh</serverId>
-                            <nexusUrl>https://oss.sonatype.org</nexusUrl>
-                            <autoReleaseAfterClose>true</autoReleaseAfterClose>
-                        </configuration>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-gpg-plugin</artifactId>
-                        <version>3.2.4</version>
-                        <executions>
-                            <execution>
-                                <id>sign-artifacts</id>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>sign</goal>
-                                </goals>
-                                <configuration>
-                                    <gpgArguments>
-                                        <arg>--pinentry-mode</arg>
-                                        <arg>loopback</arg>
-                                    </gpgArguments>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-release-plugin</artifactId>
-                        <version>3.1.0</version>
-                        <configuration>
-                            <scmCommentPrefix>[maven-release-plugin] [skip ci]</scmCommentPrefix>
-                            <allowTimestampedSnapshots>true</allowTimestampedSnapshots>
-                            <autoVersionSubmodules>true</autoVersionSubmodules>
-                            <tagNameFormat>v@{project.version}</tagNameFormat>
-                            <remoteTagging>false</remoteTagging>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <id>default</id>
-                                <goals>
-                                    <goal>perform</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-source-plugin</artifactId>
-                        <version>3.3.1</version>
-                        <executions>
-                            <execution>
-                                <id>attach-sources</id>
-                                <goals>
-                                    <goal>jar-no-fork</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-javadoc-plugin</artifactId>
-                        <version>3.7.0</version>
-                        <configuration>
-                            <failOnError>false</failOnError>
-                            <doclint>none</doclint>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <id>attach-javadocs</id>
-                                <goals>
-                                    <goal>jar</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <version>3.3.0</version>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
+
 </project>

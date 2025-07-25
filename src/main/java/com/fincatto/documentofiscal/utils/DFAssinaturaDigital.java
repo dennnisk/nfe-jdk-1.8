@@ -9,6 +9,9 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
+import javax.xml.crypto.*;
+import javax.xml.crypto.dsig.XMLSignatureFactory;
+
 import javax.naming.ldap.LdapName;
 import javax.xml.crypto.*;
 import javax.xml.crypto.dsig.*;
@@ -61,8 +64,10 @@ public class DFAssinaturaDigital implements DFLog {
 //        final String providerName = System.getProperty("jsr105Provider", "org.jcp.xml.dsig.internal.dom.XMLDSigRI");
 //        final XMLSignatureFactory signatureFactory = XMLSignatureFactory.getInstance("DOM", (Provider) Class.forName(providerName).getDeclaredConstructor().newInstance());
 
-        final XMLSignatureFactory signatureFactory = XMLSignatureFactory.getInstance("DOM", new XMLDSigRI());
-        return signatureFactory.unmarshalXMLSignature(validateContext).validate(validateContext);
+       // final XMLSignatureFactory signatureFactory = XMLSignatureFactory.getInstance("DOM", new XMLDSigRI());
+       //return signatureFactory.unmarshalXMLSignature(validateContext).validate(validateContext);
+        XMLSignatureFactory factory = XMLSignatureFactory.getInstance("DOM"); 
+        return factory.unmarshalXMLSignature(validateContext).validate(validateContext);
     }
 
     public String assinarDocumento(final String conteudoXml) throws Exception {
