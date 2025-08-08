@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.wmixvideo</groupId>
     <artifactId>nfe</artifactId>
-    <version>4.0.106-SNAPSHOT</version>
+    <version>4.0.106-JDK18-JJW</version>
     <packaging>jar</packaging>
     <name>nfe</name>
     <description>Biblioteca de comunicacao de nota fiscal eletronica brasileira</description>
@@ -15,6 +15,25 @@
             <distribution>repo</distribution>
         </license>
     </licenses>
+
+    <scm>
+        <url>git@github.com:dennnisk/nfe-jdk-1.8.git</url>
+        <connection>scm:git:git@github.com:dennnisk/nfe-jdk-1.8.git</connection>
+        <developerConnection>scm:git:git@github.com:dennnisk/nfe-jdk-1.8.git</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
+
+    <properties>
+        <java.version>1.8</java.version>
+        <slf4j.version>2.0.13</slf4j.version>
+        <junit.version>4.13.2</junit.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <axis2.version>1.7.6</axis2.version>
+        <commons-lang3.version>3.18.0</commons-lang3.version>
+        <simple-xml.version>2.7.1</simple-xml.version>
+        <distribution.server>192.168.15.251:8888</distribution.server>
+    </properties>
 
     <developers>
         <developer>
@@ -39,30 +58,20 @@
         </developer>
     </developers>
 
-    <scm>
-        <url>git@github.com:wmixvideo/nfe.git</url>
-        <connection>scm:git:git@github.com:wmixvideo/nfe.git</connection>
-        <developerConnection>scm:git:git@github.com:wmixvideo/nfe.git</developerConnection>
-        <tag>HEAD</tag>
-    </scm>
-
-    <properties>
-        <java.version>11</java.version>
-        <slf4j.version>2.0.13</slf4j.version>
-        <junit.version>4.13.2</junit.version>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <axis2.version>1.7.9</axis2.version>
-        <commons-lang3.version>3.18.0</commons-lang3.version>
-        <simple-xml.version>2.7.1</simple-xml.version>
-    </properties>
-
     <dependencies>
+    
+		<!-- https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk18on -->
+		<dependency>
+		    <groupId>org.bouncycastle</groupId>
+		    <artifactId>bcprov-jdk18on</artifactId>
+		    <version>1.78.1</version>
+		</dependency>
+
         <!-- https://mvnrepository.com/artifact/org.apache.santuario/xmlsec -->
         <dependency>
             <groupId>org.apache.santuario</groupId>
             <artifactId>xmlsec</artifactId>
-            <version>4.0.2</version>
+            <version>3.0.6</version>
         </dependency>
 
         <!-- Simple Xml Framework -->
@@ -90,8 +99,24 @@
                     <groupId>javax.servlet</groupId>
                     <artifactId>servlet-api</artifactId>
                 </exclusion>
+                <exclusion>
+			      <groupId>commons-httpclient</groupId>
+			      <artifactId>commons-httpclient</artifactId>
+			    </exclusion>
             </exclusions>
         </dependency>
+        
+		<dependency>
+		  <groupId>org.apache.httpcomponents</groupId>
+		  <artifactId>httpclient</artifactId>
+		  <version>4.5.14</version>
+		</dependency>
+		<dependency>
+		  <groupId>org.apache.httpcomponents</groupId>
+		  <artifactId>httpcore</artifactId>
+		  <version>4.4.16</version>
+		</dependency>
+
         <dependency>
             <groupId>org.apache.axis2</groupId>
             <artifactId>axis2-adb</artifactId>
@@ -110,6 +135,7 @@
             <version>${axis2.version}</version>
             <scope>compile</scope>
         </dependency>
+
 
         <!-- Logging -->
         <dependency>
@@ -174,7 +200,7 @@
                 <inherited>true</inherited>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.14.0</version>
+                <version>3.6.1</version>
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
@@ -220,121 +246,27 @@
         </plugins>
     </build>
 
-    <profiles>
-        <profile>
-            <id>ossrh</id>
-            <distributionManagement>
-                <snapshotRepository>
-                    <id>ossrh</id>
-                    <url>https://ossrh-staging-api.central.sonatype.com/content/repositories/snapshots</url>
-                </snapshotRepository>
-                <repository>
-                    <id>ossrh</id>
-                    <url>https://ossrh-staging-api.central.sonatype.com/content/repositories/releases</url>
-                </repository>
-            </distributionManagement>
-        </profile>
-        <profile>
-            <id>github</id>
-            <distributionManagement>
-                <repository>
-                    <id>github</id>
-                    <url>https://maven.pkg.github.com/wmixvideo/nfe</url>
-                </repository>
-            </distributionManagement>
-        </profile>
-        <profile>
-            <id>deploy</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.sonatype.plugins</groupId>
-                        <artifactId>nexus-staging-maven-plugin</artifactId>
-                        <version>1.7.0</version>
-                        <extensions>true</extensions>
-                        <configuration>
-                            <serverId>ossrh</serverId>
-                            <nexusUrl>https://ossrh-staging-api.central.sonatype.com</nexusUrl>
-                            <autoReleaseAfterClose>true</autoReleaseAfterClose>
-                        </configuration>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-gpg-plugin</artifactId>
-                        <version>3.2.4</version>
-                        <executions>
-                            <execution>
-                                <id>sign-artifacts</id>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>sign</goal>
-                                </goals>
-                                <configuration>
-                                    <gpgArguments>
-                                        <arg>--pinentry-mode</arg>
-                                        <arg>loopback</arg>
-                                    </gpgArguments>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-release-plugin</artifactId>
-                        <version>3.1.0</version>
-                        <configuration>
-                            <scmCommentPrefix>[maven-release-plugin] [skip ci]</scmCommentPrefix>
-                            <allowTimestampedSnapshots>true</allowTimestampedSnapshots>
-                            <autoVersionSubmodules>true</autoVersionSubmodules>
-                            <tagNameFormat>v@{project.version}</tagNameFormat>
-                            <remoteTagging>false</remoteTagging>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <id>default</id>
-                                <goals>
-                                    <goal>perform</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-source-plugin</artifactId>
-                        <version>3.3.1</version>
-                        <executions>
-                            <execution>
-                                <id>attach-sources</id>
-                                <goals>
-                                    <goal>jar-no-fork</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-javadoc-plugin</artifactId>
-                        <version>3.7.0</version>
-                        <configuration>
-                            <failOnError>false</failOnError>
-                            <doclint>none</doclint>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <id>attach-javadocs</id>
-                                <goals>
-                                    <goal>jar</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <version>3.3.0</version>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
+       <distributionManagement>
+        <repository>
+            <id>deployment</id>
+            <name>Internal Releases</name>
+            <url>http://${distribution.server}/content/repositories/releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>deployment</id>
+            <name>Internal Releases</name>
+            <url>http://${distribution.server}/content/repositories/snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
+		
+   	<repositories>
+        <repository>
+            <id>br.com.jjw.besser</id>
+            <url>http://192.168.15.251:8888/content/repositories/releases/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </repository>
+    </repositories>    
+    
 </project>
