@@ -1,3 +1,10 @@
+FORK COM ALTERAÇÃO DA VERSÃO DO JAVA PARA A 1.8 E PUBLICAÇÃO NO REPOSITORIO INTERNO.
+
+- `pom.xml` Alterado para `<version>4.0.106-JDK18-JJW</version>` e removido publicação padrão e direcionado para um repositório interno.
+- `pom.xml` Adicionado o `org.bouncycastle.bcprov-jdk18on` na versão `1.78.1` para resolver problemas de transmissão com a NFCe, ao qual estava ocasionando problemas de perda de conexão. Também removido o `commons-httpclient` do `axis2` por problemas de conexão.
+
+---------------- 
+
 Nota Fiscal Eletrônica
 ===
 Comunicador de nota fiscal e nota fiscal do consumidor da [fazenda](http://www.nfe.fazenda.gov.br/portal/principal.aspx).<br/>
