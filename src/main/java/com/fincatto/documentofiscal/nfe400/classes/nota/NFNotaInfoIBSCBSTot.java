@@ -23,7 +23,7 @@ public class NFNotaInfoIBSCBSTot extends DFBase {
   @Element(name = "gCBS")
   private NFNotaInfoIBSCBSTot.GCBS gCBS; // W50
 
-  @Element(name = "gMono")
+  @Element(name = "gMono", required = false)
   private NFNotaInfoIBSCBSTot.GMono gMono; // W57
 
   public String getVBCIBSCBS() {
