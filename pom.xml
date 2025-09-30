@@ -2,8 +2,8 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.wmixvideo</groupId>
     <artifactId>nfe</artifactId>
+    <version>5.0.4-JDK18-JJW</version>
     <packaging>jar</packaging>
-    <version>4.0.42-JDK18-SNAPSHOT</version>
     <name>nfe</name>
     <description>Biblioteca de comunicacao de nota fiscal eletronica brasileira</description>
     <url>https://github.com/wmixvideo/nfe</url>
@@ -25,47 +25,38 @@
 
     <developers>
         <developer>
-            <id>jefperito</id>
-            <name>Jeferson Viana Perito</name>
-            <url>https://github.com/jefperito</url>
-        </developer>
-        <developer>
             <id>fincatto</id>
             <name>Diego Fincatto</name>
             <url>https://github.com/fincatto</url>
         </developer>
-        <developer>
-            <id>flppsilva</id>
-            <name>Felippe Silva</name>
-            <url>https://github.com/flppsilva</url>
-        </developer>
-        <developer>
-            <id>cbockorny</id>
-            <name>Carine Bockorny</name>
-            <url>https://github.com/cbockorny</url>
-        </developer>
     </developers>
 
     <properties>
+        <java.version>1.8</java.version>
+        <slf4j.version>2.0.13</slf4j.version>
+        <junit.version>4.13.2</junit.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>1.8</java.version>
         <axis2.version>1.7.9</axis2.version>
-        <slf4j.version>2.0.7</slf4j.version>
-        <junit.version>4.13.2</junit.version>
-        <commons-lang3.version>3.14.0</commons-lang3.version>
+        <commons-lang3.version>3.18.0</commons-lang3.version>
         <simple-xml.version>2.7.1</simple-xml.version>
 		<distribution.server>192.168.15.251:8888</distribution.server>
     </properties>
 
-  
-
     <dependencies>
+    
+		<!-- https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk18on -->
+		<dependency>
+		    <groupId>org.bouncycastle</groupId>
+		    <artifactId>bcprov-jdk18on</artifactId>
+		    <version>1.78.1</version>
+		</dependency>
+
         <!-- https://mvnrepository.com/artifact/org.apache.santuario/xmlsec -->
         <dependency>
             <groupId>org.apache.santuario</groupId>
             <artifactId>xmlsec</artifactId>
-            <version>3.0.2</version>
+            <version>3.0.6</version>
         </dependency>
 
         <!-- Simple Xml Framework -->
@@ -93,6 +84,10 @@
                     <groupId>javax.servlet</groupId>
                     <artifactId>servlet-api</artifactId>
                 </exclusion>
+                <exclusion>
+			      <groupId>commons-httpclient</groupId>
+			      <artifactId>commons-httpclient</artifactId>
+			    </exclusion>
             </exclusions>
         </dependency>
         <dependency>
@@ -195,10 +190,6 @@
                     <repoToken>QTRbpWiuiwIHGrc0arqKxXsAtiVoLMc5h</repoToken>
                 </configuration>
                 <dependencies>
-                    <!--
-                    Explicit dep on jaxb-api to avoid problems with JDK9 and later, until a new version of coveralls-maven-plugin is released.
-                    See also https://github.com/trautonen/coveralls-maven-plugin/issues/112
-                    -->
                     <dependency>
                         <groupId>javax.xml.bind</groupId>
                         <artifactId>jaxb-api</artifactId>
@@ -209,7 +200,7 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.11</version>
+                <version>0.8.12</version>
                 <executions>
                     <execution>
                         <id>prepare-agent</id>
@@ -227,7 +218,7 @@
         </plugins>
     </build>
 
-    <distributionManagement>
+	<distributionManagement>
         <repository>
             <id>deployment</id>
             <name>Internal Releases</name>
