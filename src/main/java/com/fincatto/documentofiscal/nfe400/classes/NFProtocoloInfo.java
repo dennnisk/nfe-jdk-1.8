@@ -16,10 +16,10 @@ public class NFProtocoloInfo extends DFBase {
     @Attribute(name = "Id", required = false)
     private String identificador;
     
-    @Element(name = "tpAmb")
+    @Element(name = "tpAmb", required = false)
     private DFAmbiente ambiente;
     
-    @Element(name = "verAplic")
+    @Element(name = "verAplic", required = false)
     private String versaoAplicacao;
     
     @Element(name = "chNFe")

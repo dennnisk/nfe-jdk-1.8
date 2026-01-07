@@ -20,7 +20,7 @@ public class NFNotaInfo extends DFBase {
     @Attribute(name = "Id")
     private String identificador;
     
-    @Attribute(name = "versao")
+    @Attribute(name = "versao", required = false)
     private String versao;
     
     @Element(name = "ide")
