@@ -11,7 +11,7 @@ import org.simpleframework.xml.Root;
  *
  * @author Fagner Couto
  */
-@Root(name = "agropecuario")
+@Root(name = "defensivo")
 public class NFNotaInfoAgropecuarioDefensivo extends DFBase {
 
     @Element(name = "nReceituario")
