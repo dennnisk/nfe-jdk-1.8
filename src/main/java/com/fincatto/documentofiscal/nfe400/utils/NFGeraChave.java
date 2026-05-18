@@ -24,23 +24,22 @@ public class NFGeraChave {
     }
 
     public Integer getDV() {
-        final char[] valores = this.geraChaveAcessoSemDV().toCharArray();
-        final int[] valoresInt = { 2, 3, 4, 5, 6, 7, 8, 9 };
-        int indice = 0;
-        int soma = 0;
-        int valorTemp;
-        int multTemp;
-        for (int i = valores.length; i > 0; i--) {
-            if (indice >= valoresInt.length) {
-                indice = 0;
-            }
-
-            valorTemp = Integer.parseInt(String.valueOf(valores[i - 1]));
-            multTemp = valoresInt[indice++];
-            soma += valorTemp * multTemp;
-        }
-        final int dv = 11 - (soma % 11);
-        return ((dv == 11) || (dv == 10)) ? 0 : dv;
+    	final char[] valores = this.geraChaveAcessoSemDV()
+    			.toUpperCase()
+    			.toCharArray();
+    	final int[] pesos = { 2, 3, 4, 5, 6, 7, 8, 9 };
+    	int indicePeso = 0;
+    	int soma = 0;
+    	for (int i = valores.length - 1; i >= 0; i--) {
+    		if (indicePeso >= pesos.length) {
+    			indicePeso = 0;
+    		}
+    		int valorConvertido = valores[i] - 48;
+    		soma += valorConvertido * pesos[indicePeso++];
+    	}
+    	int resto = soma % 11;
+    	int dv = 11 - resto;
+    	return (dv == 10 || dv == 11) ? 0 : dv;
     }
 
     private String geraChaveAcessoSemDV() {
