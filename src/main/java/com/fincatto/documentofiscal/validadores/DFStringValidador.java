@@ -588,8 +588,7 @@ public abstract class DFStringValidador {
     }
 
     public static void exatamente44N(final String string, final String info) {
-        if (string != null) {
-            DFStringValidador.apenasNumerico(string, info);
+        if (string != null) {            
             DFStringValidador.exatamente44(string, info);
         }
     }

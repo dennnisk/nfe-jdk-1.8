@@ -6403,7 +6403,7 @@
                         </xs:annotation>
                         <xs:simpleType>
                             <xs:restriction base="xs:ID">
-                                <xs:pattern value="NFe[0-9]{44}"/>
+                                <xs:pattern value="NFe[A-Z0-9]{44}"/>
                             </xs:restriction>
                         </xs:simpleType>
                     </xs:attribute>
