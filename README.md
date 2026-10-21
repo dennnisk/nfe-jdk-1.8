@@ -1,3 +1,8 @@
+# Compatibilidade do Java 1.8 está no Fork 5.1.8
+
+Vide: https://github.com/dennnisk/nfe-jdk-1.8/tree/5.1.8-JJW-JDK18
+
+
 Nota Fiscal Eletrônica
 ===
 Biblioteca Java para gerar, assinar, validar e transmitir documentos fiscais eletrônicos para os webservices da SEFAZ: **NF-e**, **NFC-e**, **CT-e** e **MDF-e**.
