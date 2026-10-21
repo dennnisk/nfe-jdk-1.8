@@ -1,8 +1,52 @@
-FORK COM ALTERAÇÃO DA VERSÃO DO JAVA PARA A 1.8 E PUBLICAÇÃO NO REPOSITORIO INTERNO.
+# FORK COM ALTERAÇÃO DA VERSÃO DO JAVA PARA A 1.8 E PUBLICAÇÃO NO REPOSITORIO INTERNO.
 
-pom.xml Alterado para <version>5.0.51-JDK18-JJW</version> e removido publicação padrão e direcionado para um repositório interno.
-pom.xml Alterado o org.bouncycastle.bcprov-jdk18on na versão 4.0.2 para a versão <version>3.0.2</version> para resolver problemas de compatibilidade do Java 1.8.
-pom.xml Adicionado o org.bouncycastle.bcprov-jdk18on na versão 1.78.1 para resolver problemas de transmissão com a NFCe, ao qual estava ocasionando problemas de perda de conexão. Também removido o commons-httpclient do axis2 por problemas de conexão.
+## Fork JJW – compatibilidade com Java 8
+
+Este fork da biblioteca [wmixvideo/nfe](https://github.com/wmixvideo/nfe) é mantido para compilar e rodar em **Java 1.8**,
+e é publicado no repositório Maven interno da JJW.
+
+Versão: `5.1.8-JJW-JDK18`
+
+### Alterações no pom.xml
+
+- **Java**: `java.version` de `11` para `1.8`. O compiler usa `source`/`target` em vez de `release`, porque o javac 8 não aceita `--release`.
+- **Plugins** rebaixados para versões compatíveis com JDK 8 e Maven mais antigo:
+  - maven-compiler-plugin: 3.16.0 → 3.11.0
+  - maven-surefire-plugin: 3.6.0 → 3.2.5
+  - jacoco-maven-plugin: 0.8.15 → 0.8.12
+- **Dependências**:
+  - junit-jupiter: 6.1.3 → 5.10.3 (o JUnit 6 exige Java 17; os testes continuam em JUnit 5)
+  - xmlsec (Santuario): 4.0.2 → 3.0.6
+  - slf4j: 2.0.20 → 2.0.13
+  - commons-lang3: 3.21.0 → 3.18.0
+  - adicionadas: bcprov-jdk18on 1.78.1 e Axis2 1.7.9 (kernel, adb, transport-local, transport-http)
+- **Publicação**:
+  - removidos os profiles `ossrh`, `github` e `deploy` (Sonatype/GPG/maven-release-plugin) do projeto original
+  - `distributionManagement` aponta para o Nexus interno da JJW (releases e snapshots)
+  - adicionado o repositório interno `br.com.jjw.besser`
+  - `scm` aponta para `dennnisk/nfe-jdk-1.8`
+  - o token do Coveralls vem da variável `COVERALLS_REPO_TOKEN`
+
+### Alterações nos fontes (APIs do Java 9+)
+
+- `InputStream.readAllBytes()` (Java 9) foi trocado por leitura manual com buffer em
+  `ByteArrayOutputStream`, ao descompactar o GZIP da distribuição DF-e:
+  - `cte/webservices/distribuicao/WSDistribuicaoCTe.java`
+  - `mdfe/webservices/distribuicao/WSDistribuicaoMDFe.java`
+  - `nfe/webservices/distribuicao/WSDistribuicaoNFe.java`
+- `@Deprecated(since = "...", forRemoval = true)` (Java 9) foi trocado por `@Deprecated` simples, com a
+  justificativa em comentário:
+  - `nfe400/webservices/WSFacade.java` (`enviaDestinacaoItemConsumoPessoal`)
+  - `nfe400/webservices/WSDestinacaoItemConsumoPessoal.java`
+
+### Build e publicação
+
+    mvn clean test                 # validado com OpenJDK 8: 4105 testes, 0 falhas
+    mvn clean deploy -DskipTests   # publica no Nexus interno
+
+Para o deploy, o `settings.xml` precisa ter um `server` com id `deployment` e as credenciais do Nexus.
+Ao trazer mudanças do projeto original, confira se elas não usam APIs do Java 9+ (`List.of`, `var`,
+`readAllBytes`, `String.isBlank` etc.).
 
 ================
 
