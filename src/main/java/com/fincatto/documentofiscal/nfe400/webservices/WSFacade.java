@@ -726,7 +726,7 @@ public class WSFacade implements Closeable {
      * @return {@link NFEnviaEventoRetorno} dados do evento retornado pelo webservice
      * @throws Exception
      */
-    @Deprecated(since = "Evento removido em razão da revogação do § 6º do art. 57. da Lei Complementar nº 214/2025 pela Lei Complementar nº 227/2026", forRemoval = true)
+    @Deprecated // forRemoval: Evento removido em razão da revogação do § 6º do art. 57. da Lei Complementar nº 214/2025 pela Lei Complementar nº 227/2026
     public NFEnviaEventoRetorno enviaDestinacaoItemConsumoPessoal(
             final String chaveAcesso, final DFUnidadeFederativa ufEmitenteEvento, final List<NFDetGrupoConsumo> grupoItensConsumo,
             final int numeroSequencialEvento, final NFEventoTipoAutor tpAutorEvento, final String cnpjCpfAutorEvento

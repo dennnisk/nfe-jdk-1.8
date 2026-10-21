@@ -14,6 +14,7 @@ import com.fincatto.documentofiscal.validadores.DFXMLValidador;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
@@ -86,7 +87,14 @@ public class WSDistribuicaoMDFe {
 		final byte[] conteudo = Base64.getDecoder().decode(conteudoEncode);
 		// le os bytes crus (sem readLine), preservando quebras de linha dentro de campos texto do XML
 		try (GZIPInputStream gis = new GZIPInputStream(new ByteArrayInputStream(conteudo))) {
-			return new String(gis.readAllBytes(), StandardCharsets.UTF_8);
+			// InputStream.readAllBytes() e Java 9+; leitura manual para manter compatibilidade com Java 8
+			final ByteArrayOutputStream saida = new ByteArrayOutputStream();
+			final byte[] buffer = new byte[8192];
+			int lidos;
+			while ((lidos = gis.read(buffer)) != -1) {
+				saida.write(buffer, 0, lidos);
+			}
+			return new String(saida.toByteArray(), StandardCharsets.UTF_8);
 		}
 	}
 }
